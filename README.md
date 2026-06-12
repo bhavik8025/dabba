@@ -42,11 +42,24 @@ Mobile-first PWA — everyone in the group installs it from a link, logs in with
 - **Demo mode** — "Try demo" on the first screen runs the entire app on sample
   data in the browser, no account or backend needed.
 
-## Get started
+## Use the app
 
-**[getdabba.vercel.app](https://getdabba.vercel.app)** — open on any phone, tap *Try demo* (no signup) or create a free account. Browser → *Add to Home Screen* installs it like a native app.
+No install, no setup. Just open the link on your phone:
 
-### Self-hosting
+**👉 [getdabba.vercel.app](https://getdabba.vercel.app)**
+
+1. Sign up with your phone number + a 6-digit PIN.
+2. Create a group → set tiffin & roti prices → share the invite code with your flatmates.
+3. Browser menu → **Add to Home Screen** — installs like a native app, no Play Store needed.
+
+> Try it first without signing up: tap **"Try the demo"** on the welcome screen.
+
+---
+
+## For developers — run your own copy
+
+> Only needed if you want to host a completely separate instance with your own database.
+> Regular users just open the link above — no setup required.
 
 1. Create a free [Supabase](https://supabase.com) project → SQL Editor → run [`supabase/schema.sql`](supabase/schema.sql). Under **Auth → Email**, disable *Confirm email*.
 2. Copy `.env.example` → `.env` and paste the Supabase **Project URL** + **anon public** key.
