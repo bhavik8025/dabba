@@ -1,0 +1,5 @@
+# not needed for the deployed app
+marketing
+supabase
+dist
+.env

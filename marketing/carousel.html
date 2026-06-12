@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Dabba: The Tiffin Tracker — carousel</title>
+<style>
+  :root {
+    --brand: #e8590c;
+    --brand-dark: #c44a08;
+    --brand-soft: #ffe8d9;
+    --bg: #fff7ed;
+    --card: #ffffff;
+    --text: #2b2118;
+    --muted: #8a7a6d;
+    --line: #f0e4d8;
+    --green: #2f9e44;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #ddd; }
+
+  .slide {
+    width: 1080px; height: 1350px;
+    background: var(--bg);
+    position: relative; overflow: hidden;
+    margin: 0 auto 20px;
+    display: flex; flex-direction: column;
+  }
+  .slide::before {
+    content: ""; position: absolute; right: -260px; top: -260px;
+    width: 640px; height: 640px; border-radius: 50%;
+    background: radial-gradient(circle, var(--brand-soft) 0%, rgba(255,232,217,0) 70%);
+  }
+
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 44px 60px 0; position: relative; z-index: 2;
+  }
+  .wordmark { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 30px; color: var(--brand-dark); }
+  .wordmark img { width: 52px; height: 52px; border-radius: 13px; }
+  .pagenum { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: 0.06em; }
+
+  .head { padding: 48px 64px 0; position: relative; z-index: 2; }
+  .kicker {
+    display: inline-block; background: var(--brand); color: #fff;
+    font-size: 25px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 10px 22px; border-radius: 999px; margin-bottom: 26px;
+  }
+  h1 { font-size: 74px; line-height: 1.1; font-weight: 800; color: var(--text); letter-spacing: -0.015em; }
+  h1 .hl { color: var(--brand); }
+  .sub { margin-top: 22px; font-size: 32px; line-height: 1.45; color: var(--muted); max-width: 920px; }
+  .sub b { color: var(--text); }
+
+  .body { padding: 36px 64px 0; position: relative; z-index: 2; flex: 1; }
+
+  /* phone frame */
+  .phone { background: #221a14; border-radius: 50px; padding: 14px; box-shadow: 0 36px 80px rgba(43,33,24,.28); }
+  .phone img { width: 100%; display: block; border-radius: 38px; }
+
+  /* ---------- cover ---------- */
+  .cover { text-align: center; }
+  .cover .logo { width: 140px; height: 140px; border-radius: 34px; margin: 36px auto 28px; display: block;
+    box-shadow: 0 18px 44px rgba(232,89,12,.35); }
+  .cover h1 { font-size: 100px; }
+  .cover .tag { margin: 26px auto 0; font-size: 40px; font-weight: 700; color: var(--text); max-width: 880px; line-height: 1.3; }
+  .cover .tag .hl { color: var(--brand); }
+  .cover .niche {
+    margin: 30px auto 0; display: inline-block; background: #fff; border: 3px solid var(--line);
+    border-radius: 999px; padding: 16px 34px; font-size: 28px; color: var(--muted); font-weight: 600;
+  }
+  .cover .phonewrap { flex: 1; display: flex; justify-content: center; align-items: flex-end; }
+  .cover .phone { width: 460px; margin-bottom: -340px; }
+  .swipe {
+    position: absolute; right: 56px; bottom: 44px; z-index: 3;
+    background: var(--text); color: #fff; font-size: 28px; font-weight: 700;
+    padding: 16px 30px; border-radius: 999px;
+  }
+
+  /* ---------- chat problem slide ---------- */
+  .chat { margin-top: 14px; display: flex; flex-direction: column; gap: 20px; max-width: 800px; }
+  .bubble {
+    padding: 22px 30px; border-radius: 26px; font-size: 31px; line-height: 1.35; font-weight: 600;
+    max-width: 78%; box-shadow: 0 6px 18px rgba(43,33,24,.08); position: relative;
+  }
+  .bubble small { display: block; font-size: 21px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+  .bubble.left { background: #fff; color: var(--text); align-self: flex-start; border-bottom-left-radius: 8px; }
+  .bubble.right { background: #dcf8c6; color: #1f3d22; align-self: flex-end; border-bottom-right-radius: 8px; }
+  .stat {
+    margin-top: 44px; background: var(--text); color: #fff; border-radius: 26px; padding: 34px 40px;
+    font-size: 34px; line-height: 1.45; font-weight: 600; max-width: 880px;
+  }
+  .stat .hl { color: #ffb38a; }
+
+  /* ---------- personas ---------- */
+  .personas { display: flex; gap: 26px; margin-top: 16px; }
+  .persona {
+    flex: 1; background: var(--card); border: 1px solid var(--line); border-radius: 30px;
+    padding: 40px 30px; text-align: center; box-shadow: 0 12px 30px rgba(43,33,24,.07);
+  }
+  .persona .emoji { font-size: 78px; }
+  .persona h3 { font-size: 33px; margin-top: 18px; color: var(--text); }
+  .persona p { font-size: 25px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
+  .note {
+    margin-top: 44px; font-size: 29px; color: var(--muted); line-height: 1.5;
+    border-left: 8px solid var(--brand); padding-left: 26px; max-width: 880px;
+  }
+  .note b { color: var(--text); }
+
+  /* ---------- split layout (copy + phone) ---------- */
+  .split { display: flex; gap: 40px; align-items: flex-start; margin-top: 10px; flex: 1; }
+  .split .copy { flex: 1; padding-top: 14px; }
+  .check { display: flex; gap: 18px; font-size: 31px; color: var(--text); line-height: 1.4; margin-bottom: 30px; font-weight: 600; }
+  .check .tick { color: var(--brand); font-weight: 800; flex-shrink: 0; }
+  .check small { display: block; font-size: 24px; color: var(--muted); font-weight: 500; margin-top: 4px; }
+  .split .phone { width: 360px; flex-shrink: 0; margin-bottom: -440px; }
+
+  /* ---------- equation slide ---------- */
+  .equation {
+    margin-top: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 30px;
+    padding: 40px 48px; text-align: center; box-shadow: 0 12px 30px rgba(43,33,24,.07);
+  }
+  .equation .eq { font-size: 78px; font-weight: 800; color: var(--text); }
+  .equation .eq .hl { color: var(--brand); }
+  .equation p { font-size: 27px; color: var(--muted); margin-top: 14px; line-height: 1.45; }
+  .proof { margin: 36px auto 0; width: 660px; border-radius: 26px; overflow: hidden;
+    border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(43,33,24,.12); }
+  .proof img { width: 100%; display: block; }
+  .caption { text-align: center; font-size: 24px; color: var(--muted); margin-top: 18px; }
+
+  /* ---------- steps ---------- */
+  .steps { display: flex; flex-direction: column; gap: 30px; margin-top: 14px; }
+  .step { display: flex; gap: 30px; align-items: flex-start; background: var(--card); border: 1px solid var(--line);
+    border-radius: 26px; padding: 32px 36px; box-shadow: 0 10px 26px rgba(43,33,24,.06); }
+  .step .num {
+    width: 72px; height: 72px; border-radius: 22px; background: var(--brand); color: #fff;
+    font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step h3 { font-size: 34px; color: var(--text); }
+  .step p { font-size: 26px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+
+  /* ---------- tech chips ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 18px; }
+  .chip {
+    background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+    padding: 20px 32px; font-size: 28px; font-weight: 700; color: var(--text);
+    box-shadow: 0 8px 20px rgba(43,33,24,.06);
+  }
+  .chip .ico { margin-right: 10px; }
+
+  /* ---------- CTA ---------- */
+  .cta .bigline { font-size: 76px; font-weight: 800; line-height: 1.16; color: var(--text); }
+  .cta .bigline .hl { color: var(--brand); }
+  .ctarow { display: flex; gap: 50px; align-items: center; margin-top: 54px; }
+  .qrbox { background: #fff; border-radius: 30px; padding: 26px; box-shadow: 0 16px 40px rgba(43,33,24,.14); }
+  .qrbox img { width: 320px; height: 320px; display: block; }
+  .qrbox p { text-align: center; font-size: 23px; font-weight: 700; color: var(--muted); margin-top: 12px; }
+  .ctastack { flex: 1; }
+  .linkbox {
+    display: inline-block; background: var(--brand); border-radius: 22px;
+    padding: 26px 36px; font-size: 30px; font-weight: 800; color: #fff;
+    text-decoration: none; box-shadow: 0 14px 34px rgba(232,89,12,.35);
+    white-space: nowrap;
+  }
+  .linkhint { margin-top: 22px; font-size: 27px; color: var(--muted); line-height: 1.5; }
+  .cta .footer {
+    position: absolute; left: 64px; bottom: 50px; z-index: 3;
+    font-size: 26px; color: var(--muted); line-height: 1.55;
+  }
+
+  /* single-slide render mode (?slide=N) */
+  body.single { background: var(--bg); }
+  body.single .slide { display: none; margin: 0; }
+  body.single .slide.shown { display: flex; }
+
+  @media print {
+    body { background: none; }
+    .slide { margin: 0; page-break-after: always; }
+  }
+  @page { size: 1080px 1350px; margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER -->
+<section class="slide cover" id="s1">
+  <div class="head">
+    <div class="kicker" style="margin-top:36px">My new project · #BuildInPublic</div>
+    <img class="logo" src="../public/icon.svg" alt="" />
+    <h1>Dabba<span class="hl">.</span></h1>
+    <div style="font-size:40px;font-weight:800;color:var(--brand);margin-top:4px;letter-spacing:.5px">The Tiffin Tracker</div>
+    <div class="tag">A money app for the <span class="hl">smallest market possible:</span><br />4 friends and one tiffin wala.</div>
+    <div class="niche">🎯 For PG · hostel · flat folks who share daily tiffin</div>
+  </div>
+  <div class="phonewrap"><div class="phone"><img src="shots/welcome.png" /></div></div>
+  <div class="swipe">swipe →</div>
+</section>
+
+<!-- 2 · PROBLEM -->
+<section class="slide" id="s2">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">2 / 9</div></div>
+  <div class="head">
+    <div class="kicker">The problem</div>
+    <h1>Every tiffin group<br />has <span class="hl">this chat</span></h1>
+  </div>
+  <div class="body">
+    <div class="chat">
+      <div class="bubble left"><small>Me (paid ₹2,840 this month)</small>Bhai sab ka hisaab bhej raha hu 🧾</div>
+      <div class="bubble right"><small>Raj</small>Kal pakka de dunga 🙏</div>
+      <div class="bubble right"><small>Amit</small>Maine us din tiffin liya hi nahi tha 🤨</div>
+      <div class="bubble left"><small>Me</small>…spreadsheet kaun update karega 😭</div>
+    </div>
+    <div class="stat">One friend pays the vendor daily. By month-end: <span class="hl">₹2,000+ floating</span>, zero records, and the <span class="hl">awkward maths</span> nobody wants to do.</div>
+  </div>
+</section>
+
+<!-- 3 · WHO IT'S FOR -->
+<section class="slide" id="s3">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">3 / 9</div></div>
+  <div class="head">
+    <div class="kicker">Who it's for</div>
+    <h1>Built for <span class="hl">tiny trusted groups</span> — not the whole internet</h1>
+  </div>
+  <div class="body">
+    <div class="personas">
+      <div class="persona"><div class="emoji">🎓</div><h3>PG & hostel students</h3><p>One mess bill, four wallets, daily chaos</p></div>
+      <div class="persona"><div class="emoji">🏠</div><h3>Flatmates</h3><p>Shared dabbas, shared rotis, shared confusion</p></div>
+      <div class="persona"><div class="emoji">💼</div><h3>Office tiffin gangs</h3><p>One person orders for the whole desk</p></div>
+    </div>
+    <div class="note"><b>My last project (BEBO) was built for everyone.</b><br />This one goes the opposite way — hyper-specific, 3 to 5 users per group, solving one problem completely instead of ten problems halfway.</div>
+  </div>
+</section>
+
+<!-- 4 · THE FIX -->
+<section class="slide" id="s4">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">4 / 9</div></div>
+  <div class="head">
+    <div class="kicker">The fix</div>
+    <h1>Everything the WhatsApp group <span class="hl">can't do</span></h1>
+  </div>
+  <div class="body">
+    <div class="split">
+      <div class="copy">
+        <div class="check"><span class="tick">✓</span><div>Log the day in 10 seconds<small>who ordered, who paid, half-tiffins, extra rotis</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>Live balances, always current<small>+ gets money back · − owes the group</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>"Who pays whom" auto-suggested<small>shortest path to clear all dues, Splitwise-style</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>Month-end report → WhatsApp<small>per-person hisaab for any date range, one tap to copy</small></div></div>
+      </div>
+      <div class="phone"><img src="shots/balances.png" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · EXACT MATH -->
+<section class="slide" id="s5">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">5 / 9</div></div>
+  <div class="head">
+    <div class="kicker">The hard part</div>
+    <h1>2 tiffins shared by 3 people? <span class="hl">Exact to the paisa.</span></h1>
+  </div>
+  <div class="body">
+    <div class="equation">
+      <div class="eq">₹140 ÷ 3 = <span class="hl">₹46.67</span> each</div>
+      <p>Exact fractions stored, rounding only at display — so totals always add up,<br />no matter how weird the split. The math is unit-tested.</p>
+    </div>
+    <div class="proof"><img src="shots/add-shared.png" style="margin-top:-118%" /></div>
+    <div class="caption">↑ real screenshot — the live preview shows each person's share before you save</div>
+  </div>
+</section>
+
+<!-- 6 · TRUST -->
+<section class="slide" id="s6">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">6 / 9</div></div>
+  <div class="head">
+    <div class="kicker">Trust, engineered</div>
+    <h1>Money apps live or die on <span class="hl">trust</span></h1>
+  </div>
+  <div class="body">
+    <div class="split">
+      <div class="copy">
+        <div class="check"><span class="tick">✓</span><div>Every action is signed<small>added by · edited by · deleted by — on every record</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>Deletes don't erase<small>they leave a visible, restorable tombstone</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>Enforced by the server<small>attribution can't be faked, even via the raw API</small></div></div>
+        <div class="check"><span class="tick">✓</span><div>"Why do I owe ₹291?"<small>tap any name → their balance, line by line</small></div></div>
+      </div>
+      <div class="phone"><img src="shots/ledger.png" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · HOW TO START -->
+<section class="slide" id="s7">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">7 / 9</div></div>
+  <div class="head">
+    <div class="kicker">Getting started</div>
+    <h1>Your group is live in <span class="hl">2 minutes</span></h1>
+  </div>
+  <div class="body">
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><h3>Create your group</h3><p>Set your tiffin & roti prices once. Old entries never change when prices do.</p></div></div>
+      <div class="step"><div class="num">2</div><div><h3>Share one invite code</h3><p>Drop it in the WhatsApp group. Friends join with phone + 6-digit PIN — no OTP, no email.</p></div></div>
+      <div class="step"><div class="num">3</div><div><h3>Log daily, settle monthly</h3><p>Anyone can add entries. Balances update live on everyone's phone.</p></div></div>
+    </div>
+    <div class="note" style="margin-top:38px"><b>No app store.</b> It installs from the link itself — full screen, own icon, works like a native app.</div>
+  </div>
+</section>
+
+<!-- 8 · ENGINEERING -->
+<section class="slide" id="s8">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">8 / 9</div></div>
+  <div class="head">
+    <div class="kicker">Under the hood</div>
+    <h1>Small app ≠ <span class="hl">small engineering</span></h1>
+  </div>
+  <div class="body">
+    <div class="chips">
+      <div class="chip"><span class="ico">⚛️</span>React 18 + TypeScript</div>
+      <div class="chip"><span class="ico">🗄️</span>Supabase Postgres</div>
+      <div class="chip"><span class="ico">🔒</span>Row-Level Security per group</div>
+      <div class="chip"><span class="ico">📲</span>PWA — installs from a link</div>
+      <div class="chip"><span class="ico">⚡</span>Realtime sync between phones</div>
+      <div class="chip"><span class="ico">🧪</span>Unit-tested money math</div>
+      <div class="chip"><span class="ico">📵</span>Offline-aware</div>
+      <div class="chip"><span class="ico">🤖</span>Pair-programmed with AI</div>
+      <div class="chip"><span class="ico">💸</span>₹0 infra — free tiers only</div>
+    </div>
+    <div class="note" style="margin-top:48px"><b>Favourite decision:</b> phone + PIN mapped to a synthetic email under the hood — real auth with zero SMS/OTP cost. Constraints breed creativity.</div>
+  </div>
+</section>
+
+<!-- 9 · CTA -->
+<section class="slide cta" id="s9">
+  <div class="topbar"><div class="wordmark"><img src="../public/icon.svg" />Dabba</div><div class="pagenum">9 / 9</div></div>
+  <div class="head">
+    <div class="bigline">Try it <span class="hl">right now</span> —<br />demo works without signup.</div>
+    <div class="ctarow">
+      <div class="qrbox"><img src="shots/qr.png" alt="QR" /><p>scan with your phone</p></div>
+      <div class="ctastack">
+        <!-- CTA link: clickable in the PDF. Change href+text here, re-run render.mjs -->
+        <a class="linkbox" href="https://getdabba.vercel.app">🔗 getdabba.vercel.app</a>
+        <div class="linkhint">Tap the link (PDF) or scan the QR.<br />Free · no SMS/OTP · installs from the page itself.</div>
+      </div>
+    </div>
+  </div>
+  <div class="cta footer">Built with React · Supabase · a lot of chai 🍵<br />Have a tiffin group? Comment "dabba" — I'll help you set it up.</div>
+</section>
+
+<script>
+  const n = new URLSearchParams(location.search).get("slide");
+  if (n) {
+    document.body.classList.add("single");
+    document.getElementById("s" + n)?.classList.add("shown");
+  }
+</script>
+</body>
+</html>

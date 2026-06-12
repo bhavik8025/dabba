@@ -1,0 +1,21 @@
+# dependencies & build output
+node_modules/
+dist/
+dev-dist/
+
+# secrets — NEVER commit (keys live in .env locally and in Vercel env vars)
+.env
+.env.*
+!.env.example
+
+# vercel project link (contains org/project ids; recreated by `vercel link`)
+.vercel/
+
+# generated marketing artifacts (recreate with marketing/capture.mjs + render.mjs)
+marketing/shots/
+marketing/slides/
+marketing/*.pdf
+
+# OS noise
+Thumbs.db
+.DS_Store
