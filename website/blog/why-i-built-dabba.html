@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why I built a money app for 4 people in a 2BHK — Dabba blog</title>
+  <meta name="description" content="The story behind Dabba: why splitting tiffin costs with roommates needed its own app, why Splitwise didn't fit, and how server-enforced transparency ended our PG's month-end fight." />
+  <link rel="canonical" href="https://dabba-tiffin.vercel.app/blog/why-i-built-dabba.html" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg" />
+  <meta name="theme-color" content="#e8590c" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Dabba: The Tiffin Tracker" />
+  <meta property="og:title" content="Why I built a money app for 4 people in a 2BHK" />
+  <meta property="og:description" content="Why splitting tiffin costs with roommates needed its own app — and how server-enforced transparency ended our month-end fight." />
+  <meta property="og:url" content="https://dabba-tiffin.vercel.app/blog/why-i-built-dabba.html" />
+  <meta property="og:image" content="https://dabba-tiffin.vercel.app/assets/og.png" />
+  <meta property="article:published_time" content="2026-06-12" />
+  <meta property="article:author" content="Bhavik Thakkar" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="/style.css" />
+  <style>
+    .post { max-width: 44rem; }
+    .post h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); margin: 14px 0 10px; }
+    .post-meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 30px; }
+    .post h2 { font-size: 1.45rem; margin: 36px 0 12px; }
+    .post p, .post li { color: var(--muted); font-size: 1.05rem; margin-bottom: 16px; }
+    .post strong { color: var(--ink); }
+    .post ul { padding-left: 22px; }
+    .post blockquote { border-left: 4px solid var(--brand); padding: 6px 0 6px 18px; margin: 22px 0; font-style: italic; color: var(--ink); }
+    .post .cta-box { background: var(--bg2); border: 1px dashed var(--brand); border-radius: 16px; padding: 20px 22px; margin-top: 34px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why I built a money app for 4 people in a 2BHK",
+    "description": "The story behind Dabba: why splitting tiffin costs with roommates needed its own app, why Splitwise didn't fit, and how server-enforced transparency ended our PG's month-end fight.",
+    "image": "https://dabba-tiffin.vercel.app/assets/og.png",
+    "author": { "@type": "Person", "name": "Bhavik Thakkar", "url": "https://github.com/bhavik8025" },
+    "datePublished": "2026-06-12",
+    "mainEntityOfPage": "https://dabba-tiffin.vercel.app/blog/why-i-built-dabba.html",
+    "publisher": { "@type": "Person", "name": "Bhavik Thakkar" }
+  }
+  </script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/assets/icon.svg" alt="Dabba logo" width="34" height="34" /> Dabba<span class="logo-dot">.</span></a>
+    <nav aria-label="Main">
+      <a href="/#features">Features</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-sm" href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open the app</a>
+  </div>
+</header>
+<main>
+  <section>
+    <div class="wrap">
+      <article class="post">
+        <p class="kicker">Build in public · #1</p>
+        <h1>Why I built a money app for 4 people in a 2BHK</h1>
+        <p class="post-meta">12 June 2026 · Bhavik Thakkar · 4 min read</p>
+
+        <p>Every piece of startup advice says the same thing: pick a billion-dollar market. I picked my own kitchen.</p>
+
+        <p>Here's the scene. Four of us share a flat. One tiffin wala. ₹70 a box, ₹10 for an extra roti. Someone pays for everyone — it's just easier at the door. Some days you skip. Some days two tiffins get shared by three people because nobody was that hungry. Some days there's a sweet, a papad, a cold drink on top.</p>
+
+        <p>Each of those moments is tiny. Multiply by thirty days and four people, and you get the <strong>month-end maths nobody wants to do</strong> — and the conversation nobody wants to start:</p>
+
+        <blockquote>"Yaar maine paid kiya tha." "Haan but tu 5 din tha hi nahi." "Achha chalo, next month settle karenge…"</blockquote>
+
+        <p>Next month never comes. Someone quietly loses ₹600. Someone else feels weird. It's never about the money — it's about <strong>who has to be the awkward one to ask</strong>.</p>
+
+        <h2>Why not Splitwise? Why not a spreadsheet?</h2>
+        <p>We tried. Splitwise is a great general expense splitter, but daily tiffin isn't a general expense — it's the same transaction every day with tiny variations. Filling a generic expense form for "2 tiffins shared by 3 people, plus one extra roti for Raj" every single day is friction, and friction kills the habit by day four. The spreadsheet survived exactly three days. WhatsApp screenshots scroll away forever.</p>
+        <p>The problem isn't tracking expenses. It's tracking <strong>this one specific expense</strong> with near-zero effort, every day, forever.</p>
+
+        <h2>The one feature that actually matters: nobody can cheat</h2>
+        <p>Money apps for friends live or die on trust. So the core of <a href="/">Dabba</a> isn't the splitting — it's the audit trail:</p>
+        <ul>
+          <li>Every entry shows <strong>who added it</strong>, every change shows <strong>who edited it</strong> — stamped by the server itself, so it can't be faked even with technical tricks.</li>
+          <li><strong>Deleting doesn't erase.</strong> Deleted entries stay visible as restorable "deleted by X" tombstones. Hard-deleting is impossible at the database level.</li>
+          <li>Tap any balance and see <strong>the exact entries behind it</strong>. Every number is explainable, line by line.</li>
+        </ul>
+        <p>That's what turns "trust me bro" into "check it yourself" — and that's what actually ends arguments.</p>
+
+        <h2>The ₹0 constraint made it better</h2>
+        <p>I wanted this free forever — for my group and anyone else's. That single constraint shaped the best decisions: phone + PIN login instead of paid SMS OTPs, an installable web app (PWA) instead of ₹2,000+ app-store accounts, and free-tier infrastructure end to end. Constraints breed creativity.</p>
+
+        <h2>The bet</h2>
+        <p>My last project, <a href="https://bhavik8025.github.io/BEBO-the-PET/" target="_blank" rel="noopener">BEBO</a>, was built for everyone. Dabba is the opposite: built for 4 specific people — who happen to share their problem with the ~50 lakh students living in PGs across India. Hyper-niche on purpose. Boring on paper. Useful in the kitchen tomorrow morning.</p>
+        <p>It's <a href="https://github.com/bhavik8025/dabba" target="_blank" rel="noopener">open source</a>, and I'm building it in public. Real usage numbers from my own group coming in a follow-up post.</p>
+
+        <div class="cta-box">
+          <strong>Got a tiffin/mess group?</strong> <a href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open Dabba</a> — free, installs from the browser in 10 seconds, and there's a full demo inside that needs no signup. Or <a href="/#contact">ask me for set-up help</a>.
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <a class="logo" href="/"><img src="/assets/icon.svg" alt="" width="28" height="28" /> Dabba<span class="logo-dot">.</span></a>
+      <p>The tiffin tracker for PG, hostel & flat groups.<br />Free forever. Built in public in India. 🇮🇳</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open the app</a>
+      <a href="/blog/">Blog</a>
+      <a href="https://github.com/bhavik8025/dabba" target="_blank" rel="noopener">GitHub (open source)</a>
+    </nav>
+    <p class="fine">© 2026 Bhavik Thakkar · MIT licensed · No trackers, no cookies, no nonsense.</p>
+  </div>
+</footer>
+<script src="/script.js" defer></script>
+</body>
+</html>

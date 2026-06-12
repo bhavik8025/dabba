@@ -24,20 +24,36 @@ Single source of truth for continuing this project in any tool or session.
 - `leads` / `feedback` / `events` tables: INSERT-only via API (forms +
   PWA-install counter write; read in dashboard Table Editor only).
 
-## Pending work (in priority order)
+## Website — ✅ LIVE at https://dabba-tiffin.vercel.app (12 Jun 2026)
 
-1. **Marketing website** on `dabba-tiffin.vercel.app` — NOT started. Blocked on
-   the BEBO site URL (design reference user will provide). Scope agreed:
-   landing (CSS-3D dabba hero), features, screenshots, how-it-works, about,
-   feedback + lead forms (wire to Supabase tables above), blog section,
-   robots.txt, sitemap.xml, OG/Twitter meta, JSON-LD, canonical URLs,
-   Search Console + Bing setup guidance. Deploy as a SECOND Vercel project,
-   then move the `dabba-tiffin.vercel.app` domain from the app project to it.
-2. **LinkedIn launch** — user posts `marketing/dabba-carousel.pdf` + a post
+- Separate Vercel project **`dabba-website`** (static, `website/` folder of
+  this repo; its own `.vercel/` link inside that folder). The
+  `dabba-tiffin.vercel.app` domain was MOVED from the app project to it.
+- Landing page: CSS-3D dabba hero, problem (Hinglish chat), 6 features, real
+  screenshot gallery, how-it-works, dark trust section, 8-question FAQ
+  (FAQPage JSON-LD), about, **working lead + feedback forms → Supabase**
+  (verified live; one test row "Site Test" sits in `leads`), final CTA, blog
+  (`/blog/` + first post with BlogPosting schema), 404 page.
+- SEO: robots.txt, sitemap.xml, canonicals, OG/Twitter cards (assets/og.png),
+  WebSite + SoftwareApplication + FAQPage + BlogPosting structured data,
+  system fonts only, lazy images — fast by construction.
+- **IndexNow key `52854a789c6a229f8031880b15579006`** (file at site root);
+  all 3 URLs pinged to api.indexnow.org → HTTP 202 (Bing/Yandex notified).
+- Anonymous pageview counter → `events` table (`site_pageview`, one per
+  session, no cookies/third parties).
+- Re-render checks: `node scripts/sitecheck.mjs` (needs `npx serve website -l 8799`),
+  `node scripts/formcheck.mjs` (live form test).
+
+## Pending work
+
+1. **LinkedIn launch** — user posts `marketing/dabba-carousel.pdf` + a post
    from `marketing/linkedin-post.md` + the first comment with the link.
-3. Optional, all free: re-enable Vercel Web Analytics (Hobby tier — only with
-   user's explicit OK); saved "usage dashboard" SQL query in Supabase; rename
-   Supabase project display name; Microsoft Clarity.
+2. **Google Search Console + Bing Webmaster** — needs USER's Google/Microsoft
+   logins: add property `dabba-tiffin.vercel.app`, verify (HTML tag method —
+   paste tag into website/index.html head + redeploy, or DNS), submit
+   sitemap.xml. Bing: "Import from Google Search Console" is fastest.
+3. Optional, all free, only with user's explicit OK: re-enable Vercel Web
+   Analytics (Hobby tier); saved usage-dashboard SQL query; Microsoft Clarity.
 
 ## Machine state (this laptop)
 

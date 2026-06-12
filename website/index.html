@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dabba: The Tiffin Tracker — Split Tiffin Costs, Free</title>
+  <meta name="description" content="One friend pays the tiffin wala, everyone settles, zero fights. Dabba splits daily tiffin costs for PG, hostel & flat groups — exact to the paisa, signed records, free forever. No app store, no OTP." />
+  <link rel="canonical" href="https://dabba-tiffin.vercel.app/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg" />
+  <link rel="apple-touch-icon" href="/assets/icon.svg" />
+  <meta name="theme-color" content="#e8590c" />
+  <meta name="author" content="Bhavik Thakkar" />
+  <meta name="keywords" content="tiffin tracker, split tiffin cost, PG mess expense splitter, flatmates food bill, tiffin hisab app, Splitwise alternative for tiffin, dabba app, free expense splitter India" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Dabba: The Tiffin Tracker" />
+  <meta property="og:title" content="Dabba: The Tiffin Tracker — Split Tiffin Costs, Free" />
+  <meta property="og:description" content="One friend pays the tiffin wala, everyone settles, zero fights. Free tiffin cost splitter for PG & flat groups — exact to the paisa, signed records." />
+  <meta property="og:url" content="https://dabba-tiffin.vercel.app/" />
+  <meta property="og:image" content="https://dabba-tiffin.vercel.app/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dabba: The Tiffin Tracker — Split Tiffin Costs, Free" />
+  <meta name="twitter:description" content="Free tiffin cost splitter for PG & flat groups. Exact splits, signed records, zero fights." />
+  <meta name="twitter:image" content="https://dabba-tiffin.vercel.app/assets/og.png" />
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Dabba: The Tiffin Tracker",
+    "url": "https://dabba-tiffin.vercel.app/",
+    "inLanguage": "en-IN"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Dabba: The Tiffin Tracker",
+    "operatingSystem": "Any — installable web app (PWA) for Android, iPhone and desktop",
+    "applicationCategory": "FinanceApplication",
+    "description": "Free tiffin cost splitter for PG, hostel and flat groups. Log who ate and who paid in 10 seconds, split shared tiffins exact to the paisa, and settle with a signed, tamper-proof record.",
+    "url": "https://getdabba.vercel.app",
+    "image": "https://dabba-tiffin.vercel.app/assets/og.png",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "author": { "@type": "Person", "name": "Bhavik Thakkar", "url": "https://github.com/bhavik8025" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is Dabba really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — free forever, for everyone in your group. There are no ads, no premium tier and no hidden costs. The app is deliberately engineered to run on free infrastructure, which is also why login uses a PIN instead of paid SMS OTPs." } },
+      { "@type": "Question", "name": "How is Dabba different from Splitwise?", "acceptedAnswer": { "@type": "Answer", "text": "Splitwise is a general expense splitter. Dabba does one job: daily shared tiffin in PGs and flats. It understands tiffin prices, extra rotis, shared boxes split between specific people, and one-off extras — so logging a day takes 10 seconds instead of a form-filling session." } },
+      { "@type": "Question", "name": "Do I need to download it from the Play Store or App Store?", "acceptedAnswer": { "@type": "Answer", "text": "No store needed. Dabba is an installable web app (PWA): open the link, tap “Add to Home Screen”, and it behaves like a normal app with its own icon. Works on Android, iPhone and desktop." } },
+      { "@type": "Question", "name": "Does signing up need an OTP or email?", "acceptedAnswer": { "@type": "Answer", "text": "No. You log in with your phone number and a 6-digit PIN you choose. No SMS, no email verification — that keeps it instant and keeps the app free." } },
+      { "@type": "Question", "name": "Can someone secretly edit or delete an entry?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every add, edit and delete is stamped with who did it — by the server, so it can't be faked even with technical tricks. Deleted entries stay visible as restorable “deleted by X” tombstones, and payments can never be edited, only deleted with a visible trace." } },
+      { "@type": "Question", "name": "How do shared tiffins get split?", "acceptedAnswer": { "@type": "Answer", "text": "Tick who shared, and Dabba divides the cost equally among exactly those people, accurate to the paisa — e.g. 2 tiffins worth ₹140 shared by 3 people is ₹46.67 each. Individual items and one-off extras are tracked per person on top." } },
+      { "@type": "Question", "name": "What happens at month end?", "acceptedAnswer": { "@type": "Answer", "text": "Open Balances for live who-pays-whom suggestions, or generate an audit report for any date range — per person: days, tiffins, rotis, amount eaten, amount paid and net. One tap copies it as text for your WhatsApp group." } },
+      { "@type": "Question", "name": "What if someone forgets their PIN?", "acceptedAnswer": { "@type": "Answer", "text": "The group admin can reset it from the database dashboard in about a minute — the steps are documented in the project README. PINs can't be reset by SMS or email because the app deliberately uses neither." } }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="/assets/icon.svg" alt="Dabba logo" width="34" height="34" /> Dabba<span class="logo-dot">.</span></a>
+    <nav aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#screens">Screens</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-sm" href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open the app</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">🍱 Dabba — The Tiffin Tracker</p>
+        <h1>One friend pays the tiffin&nbsp;wala.<br />Everyone settles. <em>Zero&nbsp;fights.</em></h1>
+        <p class="lead">Dabba is a <strong>free tiffin cost splitter</strong> for PG, hostel and flat groups. Log the day in 10 seconds, split shared tiffins <strong>exact to the paisa</strong>, and see who pays whom — with records nobody can quietly change.</p>
+        <div class="cta-row">
+          <a class="btn btn-lg" href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open Dabba — it's free</a>
+          <a class="btn btn-ghost btn-lg" href="https://getdabba.vercel.app" target="_blank" rel="noopener">👀 Try the demo, no signup</a>
+        </div>
+        <ul class="trust">
+          <li>₹0 forever</li>
+          <li>No app store</li>
+          <li>No OTP</li>
+          <li>Installs in 10 sec</li>
+          <li>Open source</li>
+        </ul>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="steam"><i></i><i></i><i></i></div>
+        <div class="dabba3d">
+          <div class="handle"></div>
+          <div class="tier t1"><span class="shine"></span></div>
+          <div class="tier t2"><span class="shine"></span></div>
+          <div class="tier t3"><span class="shine"></span></div>
+          <div class="latch"></div>
+        </div>
+        <div class="coin c1">₹46.67</div>
+        <div class="coin c2">2 tiffins ÷ 3</div>
+        <div class="coin c3">✓ settled</div>
+        <div class="plate"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="problem">
+    <div class="wrap">
+      <p class="kicker">The month-end maths nobody wants to do</p>
+      <h2>Sound familiar?</h2>
+      <div class="chat">
+        <div class="bubble left">Yaar maine Tuesday ko paid kiya tha 🤨</div>
+        <div class="bubble right">Haan but tu 5 din tha hi nahi</div>
+        <div class="bubble left">Toh? Extra roti roz tu hi leta hai</div>
+        <div class="bubble right">Achha chalo, next month settle karenge…</div>
+        <div class="bubble note">— next month never comes. Someone quietly loses ₹600. Someone else feels weird asking.</div>
+      </div>
+      <p class="problem-out">It's never about the money. It's about <strong>who has to be the awkward one to ask</strong>. Dabba does the asking — with maths everyone can verify.</p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="wrap">
+      <p class="kicker">Everything you need, nothing you don't</p>
+      <h2>Built for exactly one job — and it nails it</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="ico">➗</div>
+          <h3>Splits exact to the paisa</h3>
+          <p>2 tiffins worth ₹140 shared by 3 people = ₹46.67 each. Individual items, shared boxes, extra rotis and one-off extras — all handled, all verifiable.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🔍</div>
+          <h3>Records nobody can fake</h3>
+          <p>Every add, edit and delete is signed with who did it — enforced by the server, not the app. Deletes stay visible as restorable tombstones.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🤝</div>
+          <h3>Who pays whom, one glance</h3>
+          <p>Live balances plus Splitwise-style settle-up suggestions. Tap any name for a line-by-line ledger of how their number adds up.</p>
+        </article>
+        <article class="card">
+          <div class="ico">📲</div>
+          <h3>Month-end report → WhatsApp</h3>
+          <p>Pick any date range and get a per-person breakdown — days, tiffins, rotis, ate, paid, net. One tap copies it for your group chat.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🔐</div>
+          <h3>Phone + PIN. No OTP drama.</h3>
+          <p>Sign in with your number and a 6-digit PIN. No SMS costs is exactly why Dabba can stay free forever.</p>
+        </article>
+        <article class="card">
+          <div class="ico">⚡</div>
+          <h3>Live sync, instant install</h3>
+          <p>Changes appear on everyone's phone in real time. Installs from the browser in 10 seconds — Android, iPhone, desktop. No app store.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="screens" id="screens">
+    <div class="wrap">
+      <p class="kicker">Real screens, not mockups</p>
+      <h2>10 seconds a day. That's the whole habit.</h2>
+    </div>
+    <div class="shots" role="list">
+      <figure role="listitem"><img src="/assets/shot-welcome.png" alt="Dabba welcome screen — log in or try the demo without signup" loading="lazy" width="480" height="1039" /><figcaption>Open the link, try the demo first</figcaption></figure>
+      <figure role="listitem"><img src="/assets/shot-add.png" alt="Adding a tiffin entry in Dabba — shared tiffins split between selected people" loading="lazy" width="480" height="1039" /><figcaption>Log the day — individual + shared</figcaption></figure>
+      <figure role="listitem"><img src="/assets/shot-balances.png" alt="Dabba balances screen showing who pays whom" loading="lazy" width="480" height="1039" /><figcaption>Who pays whom, always current</figcaption></figure>
+      <figure role="listitem"><img src="/assets/shot-ledger.png" alt="Per-person ledger in Dabba showing how a balance adds up line by line" loading="lazy" width="480" height="1039" /><figcaption>Tap a name → full ledger</figcaption></figure>
+      <figure role="listitem"><img src="/assets/shot-audit.png" alt="Dabba month-end audit report with per-person totals, ready for WhatsApp" loading="lazy" width="480" height="1039" /><figcaption>Month-end report → WhatsApp</figcaption></figure>
+      <figure role="listitem"><img src="/assets/shot-tombstone.png" alt="Deleted entry shown as a visible tombstone in Dabba — deleted by whom, restorable" loading="lazy" width="480" height="1039" /><figcaption>Deletes leave a visible trace</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <p class="kicker">Getting started</p>
+      <h2>Your group is live in 2 minutes</h2>
+      <ol class="steps">
+        <li><span>1</span><h3>Create your group</h3><p>Open <a href="https://getdabba.vercel.app" target="_blank" rel="noopener">the app</a>, sign up with phone + PIN, set your tiffin and roti prices once.</p></li>
+        <li><span>2</span><h3>Friends join with a code</h3><p>Share the 6-character invite code on WhatsApp. Everyone's on the same live ledger.</p></li>
+        <li><span>3</span><h3>Log daily, settle monthly</h3><p>10 seconds after lunch. At month end, the report does the awkward conversation for you.</p></li>
+      </ol>
+      <p class="install-note">💡 <strong>Install it like an app:</strong> open the link → browser menu → <em>Add to Home Screen</em>. Own icon, full screen, no store needed.</p>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trustdeep">
+    <div class="wrap trust-grid">
+      <div>
+        <p class="kicker">Trust, engineered</p>
+        <h2>Money apps live or die on one question: <em>can someone cheat?</em></h2>
+        <ul class="checks">
+          <li><strong>Server-stamped attribution.</strong> "Added by", "edited by", "deleted by" are written by the database itself — not the app — so they can't be faked even with technical tricks.</li>
+          <li><strong>Nothing disappears.</strong> Hard-deleting records is impossible by design. Deletes become visible, restorable tombstones; payments are immutable once recorded.</li>
+          <li><strong>Every number is explainable.</strong> Tap any balance and see the exact entries behind it. No "trust me bro" maths anywhere.</li>
+        </ul>
+        <p><a class="btn btn-ghost" href="https://github.com/bhavik8025/dabba" target="_blank" rel="noopener">Read the code on GitHub →</a></p>
+      </div>
+      <figure class="trust-shot"><img src="/assets/shot-tombstone.png" alt="A deleted entry in Dabba stays visible: struck through, marked deleted by Raj, with a restore button" loading="lazy" width="480" height="1039" /></figure>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <p class="kicker">Questions, answered</p>
+      <h2>FAQ</h2>
+      <details><summary>Is Dabba really free?</summary><p>Yes — free forever, for everyone in your group. No ads, no premium tier, no hidden costs. The app is deliberately engineered to run on free infrastructure, which is also why login uses a PIN instead of paid SMS OTPs.</p></details>
+      <details><summary>How is Dabba different from Splitwise?</summary><p>Splitwise is a general expense splitter. Dabba does one job: daily shared tiffin in PGs and flats. It understands tiffin prices, extra rotis, shared boxes split between specific people, and one-off extras — so logging a day takes 10 seconds instead of a form-filling session.</p></details>
+      <details><summary>Do I need the Play Store or App Store?</summary><p>No store needed. Dabba is an installable web app (PWA): open the link, tap "Add to Home Screen", and it behaves like a normal app with its own icon — on Android, iPhone and desktop.</p></details>
+      <details><summary>Does signing up need an OTP or email?</summary><p>No. You log in with your phone number and a 6-digit PIN you choose. No SMS, no email verification — that keeps it instant and keeps the app free.</p></details>
+      <details><summary>Can someone secretly edit or delete an entry?</summary><p>No. Every add, edit and delete is stamped with who did it — by the server, so it can't be faked. Deleted entries stay visible as restorable "deleted by X" tombstones, and payments can never be edited, only deleted with a visible trace.</p></details>
+      <details><summary>How do shared tiffins get split?</summary><p>Tick who shared, and Dabba divides the cost equally among exactly those people, accurate to the paisa — e.g. 2 tiffins worth ₹140 shared by 3 people is ₹46.67 each. Individual items and extras are tracked per person on top.</p></details>
+      <details><summary>What happens at month end?</summary><p>Open Balances for live who-pays-whom suggestions, or generate an audit report for any date range — per person: days, tiffins, rotis, ate, paid, net. One tap copies it as text for your WhatsApp group.</p></details>
+      <details><summary>What if someone forgets their PIN?</summary><p>The group admin can reset it from the database dashboard in about a minute — steps are in the <a href="https://github.com/bhavik8025/dabba#readme" target="_blank" rel="noopener">README</a>. PINs can't be reset by SMS or email because the app deliberately uses neither.</p></details>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <p class="kicker">The story</p>
+      <h2>Built for 4 people in a 2BHK. On purpose.</h2>
+      <p>Hi, I'm <strong>Bhavik Thakkar</strong>. My last project, <a href="https://bhavik8025.github.io/BEBO-the-PET/" target="_blank" rel="noopener">BEBO</a>, was built for everyone. Dabba is the opposite bet — built for my own flat's daily tiffin fight, then opened up to the ~50 lakh PG-living students in India who have the exact same one.</p>
+      <p>It's <a href="https://github.com/bhavik8025/dabba" target="_blank" rel="noopener">open source</a>, runs on ₹0/month infrastructure, and was pair-programmed with AI in days, not months. The constraint is the product: one job, done properly.</p>
+      <p>Follow the build, steal the ideas, or just use the app — all three are free. 🍱</p>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section class="forms" id="contact">
+    <div class="wrap forms-grid">
+      <div class="form-card">
+        <h2>Want help setting up your group?</h2>
+        <p>Leave your contact — I'll personally help you get your PG/flat group running (and you'll get updates when new stuff ships).</p>
+        <form id="lead-form" autocomplete="on">
+          <label>Your name <input name="name" type="text" maxlength="80" placeholder="e.g. Rahul" /></label>
+          <label>Phone or email <span class="req">*</span> <input name="contact" type="text" maxlength="120" required placeholder="98XXXXXXXX or you@email.com" /></label>
+          <label>Anything specific? <textarea name="message" maxlength="500" rows="3" placeholder="e.g. 5 people, 2 tiffin walas…"></textarea></label>
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn" type="submit">Get set-up help — free</button>
+          <p class="form-msg" role="status"></p>
+        </form>
+      </div>
+      <div class="form-card">
+        <h2>Tell me what to improve</h2>
+        <p>Used Dabba? Rough edges, missing features, confusing screens — I read every single one.</p>
+        <form id="feedback-form">
+          <fieldset class="stars"><legend>How's it so far?</legend>
+            <label><input type="radio" name="rating" value="1" /><span>1</span></label>
+            <label><input type="radio" name="rating" value="2" /><span>2</span></label>
+            <label><input type="radio" name="rating" value="3" /><span>3</span></label>
+            <label><input type="radio" name="rating" value="4" /><span>4</span></label>
+            <label><input type="radio" name="rating" value="5" /><span>5</span></label>
+          </fieldset>
+          <label>Your feedback <span class="req">*</span> <textarea name="message" maxlength="1000" rows="4" required placeholder="What's working? What's broken? What's missing?"></textarea></label>
+          <label>Contact (optional, if you want a reply) <input name="contact" type="text" maxlength="120" placeholder="phone or email" /></label>
+          <input class="hp" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn" type="submit">Send feedback</button>
+          <p class="form-msg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap">
+      <h2>Tomorrow's lunch is coming.<br />Settle it the easy way.</h2>
+      <a class="btn btn-lg btn-invert" href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open Dabba — free, 10-second install</a>
+      <p class="final-sub">Demo works without signup. Your group will thank you on the 1st.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <a class="logo" href="/"><img src="/assets/icon.svg" alt="" width="28" height="28" /> Dabba<span class="logo-dot">.</span></a>
+      <p>The tiffin tracker for PG, hostel & flat groups.<br />Free forever. Built in public in India. 🇮🇳</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="https://getdabba.vercel.app" target="_blank" rel="noopener">Open the app</a>
+      <a href="/blog/">Blog</a>
+      <a href="https://github.com/bhavik8025/dabba" target="_blank" rel="noopener">GitHub (open source)</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <p class="fine">© 2026 Bhavik Thakkar · MIT licensed · No trackers, no cookies, no nonsense.</p>
+  </div>
+</footer>
+
+<script src="/script.js" defer></script>
+</body>
+</html>

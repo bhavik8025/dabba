@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dabba-tiffin.vercel.app/sitemap.xml

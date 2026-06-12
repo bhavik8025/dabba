@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#e8590c"/>
+  <!-- stacked tiffin box -->
+  <g fill="none" stroke="#fff7ed" stroke-width="22" stroke-linecap="round">
+    <path d="M150 200 h212" />
+    <rect x="150" y="200" width="212" height="70" rx="14" fill="#fff7ed" stroke="none"/>
+    <rect x="150" y="290" width="212" height="70" rx="14" fill="#fff7ed" stroke="none"/>
+    <path d="M256 200 v-44" />
+    <path d="M196 156 a60 60 0 0 1 120 0" />
+  </g>
+  <circle cx="256" cy="412" r="18" fill="#fff7ed"/>
+</svg>
