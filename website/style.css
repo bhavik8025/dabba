@@ -257,11 +257,22 @@ footer nav a:hover { text-decoration: underline; }
   .grid, .steps { grid-template-columns: 1fr 1fr; }
   .hero-art { height: 360px; order: -1; transform: scale(0.85); }
   .nav nav { display: none; }
+  .nav .btn-sm { margin-left: auto; }
   section { padding: 64px 0; }
 }
 @media (max-width: 560px) {
   .grid, .steps { grid-template-columns: 1fr; }
   .cta-row .btn { width: 100%; text-align: center; }
+  section { padding: 48px 0; }
+  .hero { padding: 36px 0 50px; }
+  .hero-art { height: 220px; order: 1; transform: scale(0.68); transform-origin: center top; }
+  .coin { display: none; }
+  .lead { font-size: 1rem; margin-bottom: 18px; }
+  .form-card { padding: 22px 16px; }
+  .shots img { width: 210px; }
+  .problem-out { font-size: 1rem; }
+  .bubble { font-size: 0.94rem; padding: 10px 15px; }
+  h2 { margin-bottom: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

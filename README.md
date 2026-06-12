@@ -42,69 +42,19 @@ Mobile-first PWA — everyone in the group installs it from a link, logs in with
 - **Demo mode** — "Try demo" on the first screen runs the entire app on sample
   data in the browser, no account or backend needed.
 
-## One-time setup (~10 minutes)
+## Get started
 
-### 1. Create the Supabase project (free)
+**[getdabba.vercel.app](https://getdabba.vercel.app)** — open on any phone, tap *Try demo* (no signup) or create a free account. Browser → *Add to Home Screen* installs it like a native app.
 
-1. Go to [supabase.com](https://supabase.com) → sign up → **New project** (free tier).
-2. When it's ready, open **SQL Editor** → **New query**, paste the entire contents of
-   [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
-3. Go to **Authentication → Sign In / Providers → Email** and turn **OFF**
-   "Confirm email". (Login uses phone+PIN mapped to a synthetic email under the
-   hood — no real emails are ever sent, this just skips the confirmation step.)
+### Self-hosting
 
-### 2. Connect the app
+1. Create a free [Supabase](https://supabase.com) project → SQL Editor → run [`supabase/schema.sql`](supabase/schema.sql). Under **Auth → Email**, disable *Confirm email*.
+2. Copy `.env.example` → `.env` and paste the Supabase **Project URL** + **anon public** key.
+3. `npm install && npm run dev` for local dev. Deploy free: push to GitHub → [Vercel](https://vercel.com) → add the two `VITE_…` env vars → done.
 
-1. In Supabase: **Project Settings → API** — copy the **Project URL** and the
-   **anon public** key.
-2. Copy `.env.example` to `.env` and paste both values in.
-
-### 3. Run it locally
-
-```
-npm install
-npm run dev
-```
-
-### 4. Deploy free (so everyone's phone can use it)
-
-Easiest: [vercel.com](https://vercel.com) → **New project** → import this folder
-(push it to GitHub first, or use `npx vercel`). Add the two `VITE_...` env vars in
-the Vercel project settings. You get a URL like `https://tiffin-yourname.vercel.app`.
-
-Everyone opens that URL on their phone → browser menu → **Add to Home Screen** →
-it installs like an app.
-
-### 5. First use
-
-1. You: create an account (name, phone, PIN) → **Create a new group** → set tiffin
-   and roti prices.
-2. Settings tab shows the **invite code** — share it in the group chat.
-3. Friends: create an account → **Join with invite code**.
-4. Start logging from the Add tab.
-
-## If someone forgets their PIN
-
-There is no SMS or email reset (that's what keeps the app free). As the person
-who owns the Supabase project, you reset it in ~1 minute:
-
-1. Supabase Dashboard → **Authentication → Users**.
-2. Find the account — the email looks like `p98XXXXXXXX@tiffin-tracker.app`
-   (their phone number).
-3. Open the **⋯** menu → **Update user** → set a new password = their new
-   6-digit PIN. Tell them, done.
+> **Forgot PIN?** Supabase Dashboard → Auth → Users → find `p<phone>@tiffin-tracker.app` → Update user → set new 6-digit password.
 
 ## Notes
 
-- PIN is 6 digits because the backend requires a minimum 6-character password.
-  Tell friends not to reuse their ATM PIN.
-- This is a trusted-group app: every member can add/edit/delete entries and
-  record payments for the group (just like Splitwise) — but nothing happens
-  silently: adds, edits and deletes always carry the doer's name, enforced
-  server-side.
-- Known tradeoff: profile names/phones are readable by any signed-in account on
-  *your* deployment (needed so removed members' names survive). Fine for a
-  private friends deployment.
-- Data lives in your Supabase project — the free tier is far beyond what
-  4 people logging tiffins will ever use.
-- Money-math unit tests: `npm test` — run them after any code edits.
+- `npm test` — money-math unit tests; run after any calculation changes.
+- Trusted-group model: any member can add/edit entries (like Splitwise), but every action is server-stamped with the doer's name and can't be faked.
