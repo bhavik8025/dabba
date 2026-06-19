@@ -1,8 +1,24 @@
 import { useState } from "react";
 import { supabase, phoneToEmail } from "../lib/supabase";
+import {
+  withRetry,
+  isAlreadyRegistered,
+  isInvalidCredentials,
+  friendlyAuthError,
+} from "../lib/authError";
 
 interface Props {
   onBack?: () => void;
+}
+
+// Make sure the signed-in user has a profile row. Safe to call repeatedly:
+// 23505 (already exists) is treated as success, so a re-tried or recovered
+// signup never errors here.
+async function ensureProfile(id: string, name: string, phone: string) {
+  const { error } = await withRetry(() =>
+    supabase.from("profiles").insert({ id, name, phone })
+  );
+  if (error && error.code !== "23505") throw error;
 }
 
 export default function AuthScreen({ onBack }: Props) {
@@ -26,27 +42,47 @@ export default function AuthScreen({ onBack }: Props) {
     try {
       const email = phoneToEmail(digits);
       if (mode === "register") {
-        const { data, error } = await supabase.auth.signUp({ email, password: pin });
-        if (error) throw error;
-        if (data.user) {
-          const { error: pErr } = await supabase
-            .from("profiles")
-            .insert({ id: data.user.id, name: name.trim(), phone: digits });
-          if (pErr && pErr.code !== "23505") throw pErr;
+        const { data, error } = await withRetry(() =>
+          supabase.auth.signUp({ email, password: pin })
+        );
+
+        // A previous attempt may have actually succeeded but lost its response
+        // on a flaky network — the account exists server-side. Supabase signals
+        // this either with an "already registered" error, or (with enumeration
+        // protection on) a user object that has no identities. Either way, log
+        // the person in with the same PIN instead of dead-ending them.
+        const obfuscatedExisting =
+          data?.user &&
+          Array.isArray(data.user.identities) &&
+          data.user.identities.length === 0;
+
+        if ((error && isAlreadyRegistered(error)) || obfuscatedExisting) {
+          const { data: liData, error: liErr } = await withRetry(() =>
+            supabase.auth.signInWithPassword({ email, password: pin })
+          );
+          if (liErr) {
+            if (isInvalidCredentials(liErr)) {
+              setError(
+                "This number already has an account. If it's yours, switch to Log in and check your PIN."
+              );
+              return;
+            }
+            throw liErr;
+          }
+          if (liData?.user) await ensureProfile(liData.user.id, name.trim(), digits);
+          return;
         }
+
+        if (error) throw error;
+        if (data?.user) await ensureProfile(data.user.id, name.trim(), digits);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password: pin });
+        const { error } = await withRetry(() =>
+          supabase.auth.signInWithPassword({ email, password: pin })
+        );
         if (error) throw error;
       }
     } catch (e: any) {
-      const msg: string = e.message || "Something went wrong";
-      setError(
-        msg.includes("already registered")
-          ? "This phone number is already registered — try logging in."
-          : msg.includes("Invalid login credentials")
-          ? "Wrong phone number or PIN."
-          : msg
-      );
+      setError(friendlyAuthError(e));
     } finally {
       setBusy(false);
     }
